@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="header-bar">
-            <span id="brand">GroceryScape</span>
+            <span id="brand"><img src="../assets/default.svg" alt="" srcset=""></span>
             <div class="search-div">
                 <input type="search" name="" id="" placeholder="Enter Search Here...">
                 <a href="#" class="btn">Search</a>
@@ -34,13 +34,14 @@
 .header-bar{
     width: 100%;
     height: 100px;
-    background: linear-gradient(to right, rgb(110, 214, 214), rgb(111, 236, 111));
+    background: #00242c;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-left: 16px;
     padding-right: 16px;
     #brand{
+        width: 100px;
         font-size: 32px;
         font-weight: bold;
         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -54,6 +55,8 @@
             align-items: center;
             box-shadow: none;
             height: 50px;
+            background: #81e291;
+            color: #00242c;
         }
         input{
             width: 500px;
@@ -67,6 +70,7 @@
         display: flex;
         align-items: center;
         font-weight: bold;
+        color: white;
         a{
             margin-right: 8px;
             background: white;
@@ -87,6 +91,7 @@ nav {
   padding-left: 16px;
   padding-right: 16px;
   background: white;
+  box-shadow: none;
   a{
       color: black;
   }
