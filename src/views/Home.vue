@@ -2,16 +2,15 @@
   <div class="home">
     <div class="section">
       <div class="container">
-        <h5>Top Savers Today</h5>
+        <h5>Vegetables</h5>
         <div class="grid">
-          <div class="card" v-for="i in [1,2,3]" :key="i">
+          <div class="card" v-for="i in [1,2,3,4,5]" :key="i">
             <div class="card-image">
               <img src="../assets/grocery.jpg">
             </div>
             <div class="card-content">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+              <span class="card-title">Lettuce</span>
+              <p>I am a very simple card.</p>
             </div>
             <div class="card-action">
               <a href="#">Add to Cart</a>
@@ -25,12 +24,12 @@
       <div class="container">
         <h5>Fruits</h5>
         <div class="grid">
-          <div class="card" v-for="i in [1,2,3]" :key="i">
+          <div class="card" v-for="i in [1,2,3,4]" :key="i">
             <div class="card-image">
               <img src="../assets/grocery.jpg">
             </div>
             <div class="card-content">
-              <span class="card-title">Card Title</span>
+              <span class="card-title">Ripe Plantain</span>
               <p>I am a very simple card. I am good at containing small bits of information.
               I am convenient because I require little markup to use effectively.</p>
             </div>
@@ -79,37 +78,6 @@
         </div>
       </div>
     </div>
-    <div class="section footer">
-      <div class="footer-grid">
-        <div class="grid-column">
-          <h5>Contact Us</h5>
-          <p> <a>  <i class="material-icons tiny">call</i>+876123456789 </a> </p>
-          <p> <a>  <i class="material-icons tiny">email</i>groceryscape@gmail.com </a> </p>
-          <p> <a>  <i class="material-icons tiny">language</i>www.groceryscape.com </a> </p>
-        </div>
-        <div class="grid-column">
-          <h5>Top Parishes</h5>
-          <p> <a>  St. Andrew </a> </p>
-          <p> <a> St. Catherine </a> </p>
-          <p> <a> St.James </a> </p>
-        </div>
-        <div class="grid-column">
-          <h5>Catergories</h5>
-          <p> <a> Vegetables </a> </p>
-          <p> <a> Staples </a> </p>
-          <p> <a> Meat and Poultry </a> </p>
-        </div>
-        <div class="grid-column">
-          <h5>About Us</h5>
-          <p> <a> Company Information </a> </p>
-          <p> <a> Store Location </a> </p>
-          <p> <a> Copyright </a> </p>
-        </div>  
-      </div>
-      <h6 class="copyright">
-        Copyright &copy; 2021. All Rights Reserved
-      </h6>
-    </div>
   </div>
 </template>
 
@@ -123,7 +91,7 @@ export default {
 <style lang="scss" scoped>
 .grid{
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(4, auto);
   .card{
     width: 200px;
     .card-image{
@@ -136,7 +104,7 @@ export default {
     }
     .card-content{
       p{
-        height: 80px;
+        max-height: 80px;
         font-size: 14px;
         overflow: hidden;
       }
@@ -181,31 +149,6 @@ export default {
         font-size: 12px;
       }
     }
-  }
-}
-
-.footer{
-  background: rgb(226, 226, 226);
-  .footer-grid{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    .grid-column{
-      margin: 16px;
-    }
-
-    a{
-      cursor: pointer;
-      color: #00242c;
-    }
-    a:hover{
-      text-decoration: underline;
-    }
-  }
-
-  .copyright{
-    text-align: center;
-    font-size: 12px;
   }
 }
 

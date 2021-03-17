@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 
 import Toolbar from './components/Toolbar';
+import Footer from './components/Footer';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'material-design-icons/iconfont/material-icons.css';
 
@@ -11,6 +12,7 @@ Vue.config.productionTip = false;
 
 
 Vue.component('toolbar', Toolbar);
+Vue.component('app-footer', Footer);
 
 new Vue({
   router,
