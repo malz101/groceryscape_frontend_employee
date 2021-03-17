@@ -33,9 +33,9 @@
 
 .header-bar{
     width: 100%;
-    height: 100px;
     background: #00242c;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding-left: 60px;
@@ -96,5 +96,24 @@ nav {
       color: black;
   }
 
+}
+
+@media screen and (max-width:800px) {
+    .header-bar{
+        justify-content: space-evenly;
+        .search-div{
+            margin-bottom: 40px;
+            order: 3;
+            input{
+                width: 200px;
+                height: 30px;
+                padding: 8px;
+            }
+            a{
+                height: 30px;
+            }
+        }
+    }
+    
 }
 </style>
