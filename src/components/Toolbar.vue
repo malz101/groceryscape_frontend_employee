@@ -18,7 +18,7 @@
                     <span>Home</span>
                 </router-link>
                     <ul id="nav-mobile" class="right">
-                        <li><router-link to="/">Shop</router-link></li>
+                        <li><router-link to="/shop">Shop</router-link></li>
                         <li><router-link to="#">Categories</router-link></li>
                         <li><router-link to="#"> FAQ </router-link></li>
                         <li><router-link to="#" id="admin">Contact</router-link></li>
@@ -55,16 +55,17 @@
             display: flex;
             align-items: center;
             box-shadow: none;
-            height: 50px;
+            height: 35px;
             background: #81e291;
             color: #00242c;
+            border-radius: 0;
         }
         input{
             width: 500px;
             background: white;
             padding: 16px;
             box-sizing: border-box;
-            height: 50px;
+            height: 35px;
         }
     }
     .cart{
