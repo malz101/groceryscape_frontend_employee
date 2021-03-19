@@ -1,7 +1,7 @@
 <template>
     <div class="shop">
         <div class="container">
-            <span class="heading"><i class="material-icons tiny">home</i> <strong>Home</strong>/ Shop </span>
+            <span class="heading"><i class="material-icons tiny">home</i> <strong> <router-link to="/">Home</router-link> </strong>/ Shop </span>
             <div class="section">
                 <div class="grid">
                     <div class="categories">
@@ -53,6 +53,12 @@ export default {
         strong{
             font-weight: bold;
             margin-right: 4px;
+            a{
+                color: black;
+            }
+            a:hover{
+                text-decoration: underline;
+            }
         }
     }
 
