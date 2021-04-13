@@ -4,15 +4,15 @@
       <div class="container">
         <h5>Vegetables</h5>
         <div class="grid">
-          <div class="card" v-for="i in [1,2,3,4,5]" :key="i">
+          <div class="card" v-for="grocery of Object.values(groceries).slice(0, 8)" :key="grocery.id">
             <div class="card-image">
               <img src="../assets/grocery.jpg">
             </div>
             <div class="card-content">
-              <span class="card-title">Lettuce</span>
-              <p>I am a very simple card.</p>
+              <span class="card-title">{{grocery.name}}</span>
+              <p>{{grocery['cost_per_unit']}}</p>
             </div>
-            <div class="card-action">
+            <div class="card-action center">
               <a href="#">Add to Cart</a>
             </div>
           </div>
@@ -24,16 +24,15 @@
       <div class="container">
         <h5>Fruits</h5>
         <div class="grid">
-          <div class="card" v-for="i in [1,2,3,4]" :key="i">
+          <div class="card" v-for="grocery of Object.values(groceries).slice(9, 17)" :key="grocery.id">
             <div class="card-image">
               <img src="../assets/grocery.jpg">
             </div>
             <div class="card-content">
-              <span class="card-title">Ripe Plantain</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+              <span class="card-title">{{grocery.name}}</span>
+              <p>{{grocery['cost_per_unit']}}</p>
             </div>
-            <div class="card-action">
+            <div class="card-action center">
               <a href="#">Add to cart</a>
             </div>
           </div>
@@ -83,8 +82,20 @@
 
 <script>
 // @ is an alias to /src
+
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'Home'
+  name: 'Home',
+  
+  async created(){
+    await this.getGroceries();
+  },
+  methods:{
+    ...mapActions(['getGroceries'])
+  },
+  computed:{
+    ...mapGetters(['groceries'])
+  }
 }
 </script>
 
@@ -94,16 +105,25 @@ export default {
   grid-template-columns: repeat(4, auto);
   .card{
     width: 200px;
+    padding: 16px;
+    box-sizing: content-box;
     .card-image{
       width: 200px;
       height: 130px;
+      img:hover{
+        transform: scale(1.1);
+      }
     }
     .card-title{
-      color: black;
+      color: orange;
+      text-align: center;
       font-size: 18px;
+      font-weight: bold;
     }
     .card-content{
+      text-align: center;
       p{
+        font-weight: bold;
         max-height: 80px;
         font-size: 14px;
         overflow: hidden;

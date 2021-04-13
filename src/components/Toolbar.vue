@@ -7,7 +7,7 @@
                 <a href="#" class="btn">Search</a>
             </div>
             <span class="cart">
-                <a href="#" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
+                <a href="/cart" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
                 My Cart
             </span>
         </div>
@@ -34,7 +34,7 @@
 
 .header-bar{
     width: 100%;
-    background: #00242c;
+    background: var(--bg-primary);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -43,7 +43,6 @@
     padding-right: 60px;
     #brand{
         width: 100px;
-        font-size: 32px;
         font-weight: bold;
         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         color: black;
@@ -56,7 +55,7 @@
             align-items: center;
             box-shadow: none;
             height: 35px;
-            background: #81e291;
+            background: var(--color-primary);
             color: #00242c;
             border-radius: 0;
         }
@@ -96,7 +95,7 @@ nav {
   box-shadow: none;
   a{
       color: black;
-      font-size: 14px;
+      font-size: 16px;
   }
 }
 

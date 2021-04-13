@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Shop from '../views/Shop';
 import About from '../views/About';
+import Cart from '../views/Cart';
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,10 @@ const routes = [
   {
     path:'/about',
     component: About
+  },
+  {
+    path:'/cart',
+    component:Cart
   }
 ];
 
