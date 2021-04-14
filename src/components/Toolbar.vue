@@ -6,10 +6,14 @@
                 <input type="search" name="" id="" placeholder="Enter Search Here...">
                 <a href="#" class="btn">Search</a>
             </div>
-            <span class="cart">
-                <a href="/cart" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
-                My Cart
-            </span>
+            <div class="cart-logout-container">
+                <span class="cart">
+                    <a href="/cart" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
+                </span>
+                <span class="logout">
+                    <a @click="signOut" class="btn-small"><i class="material-icons tiny">exit_to_app</i></a>
+                </span>
+            </div>
         </div>
         <div class="container">
             <nav class="nav-wrapper">
@@ -29,6 +33,19 @@
         </div>
     </div>
 </template>
+
+<script>
+import { mapActions } from 'vuex';
+export default {
+    methods:{
+        ...mapActions(['logout']),
+        signOut(){
+            this.logout();
+            this.$router.push('/login');
+        }
+    }
+}
+</script>
 
 <style lang="scss" scoped>
 
@@ -67,25 +84,31 @@
             height: 35px;
         }
     }
-    .cart{
+    .cart-logout-container{
         display: flex;
         align-items: center;
-        font-weight: bold;
-        color: white;
-        a{
-            margin-right: 8px;
-            background: white;
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
+
+        .cart, .logout{
             display: flex;
             align-items: center;
-            justify-content: center;
-            i{
-                color: #000;
+            font-weight: bold;
+            color: white;
+            a{
+                margin-right: 8px;
+                background: white;
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                i{
+                    color: #000;
+                }
             }
         }
     }
+    
 }
 
 nav {

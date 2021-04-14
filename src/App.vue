@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <toolbar></toolbar>
+    <toolbar v-if="isLoggedIn"></toolbar>
     <router-view/>
     <app-footer></app-footer>
   </div>
@@ -8,10 +8,15 @@
 
 <script>
 import M from 'materialize-css';
+import { mapGetters } from 'vuex';
+import router from './router';
 
 export default{
   mounted(){
     M.AutoInit();
+  },
+  computed:{
+    ...mapGetters(['isLoggedIn'])
   }
 }
 

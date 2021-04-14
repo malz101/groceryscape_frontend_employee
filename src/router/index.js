@@ -4,6 +4,8 @@ import Home from '../views/Home.vue';
 import Shop from '../views/Shop';
 import About from '../views/About';
 import Cart from '../views/Cart';
+import Login from '../views/Login';
+import store from '../store';
 
 Vue.use(VueRouter)
 
@@ -11,6 +13,10 @@ const routes = [
   {
     path: '/',
     component: Home,
+  },
+  {
+    path:'/login',
+    component:Login
   },
   {
     path: '/shop',
@@ -31,5 +37,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+
+router.beforeEach((to, from, next)=>{
+  if (to.path !== '/login' && !store.getters.isLoggedIn) {
+    next({ path: '/login' });
+  }
+  else if (to.path === '/login' && store.getters.isLoggedIn){
+    next({path: '/'});
+  }
+  else{
+    next();
+  }
+});
+
 
 export default router;
