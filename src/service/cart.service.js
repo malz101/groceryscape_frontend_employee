@@ -61,5 +61,20 @@ export default{
                 return reject(resp.data);
             }
         });
+    },
+    async checkoutCart(token){
+        return new Promise(async(resolve, reject)=>{
+            const resp = await axios.get(`${config.api}/manage_cart/CheckOutCart`, {
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            if(resp.status==200){
+                return resolve(resp.data);
+            }
+            else{
+                return reject(resp.data);
+            }
+        });
     }
 }

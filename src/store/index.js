@@ -110,6 +110,9 @@ export default new Vuex.Store({
           alert('An error occurred. Failed to empty');
         }
       })
+      .catch(({msg})=>{
+        alert('An error occurred.'+msg);
+      })
     },
     removeItemFromCart({commit, getters}, payload){
       return cartService.removeItemFromCart(getters.token, payload)
@@ -120,6 +123,24 @@ export default new Vuex.Store({
         else{
           alert('An error occurred. Failed to remove item');
         }
+      })
+      .catch(({msg})=>{
+        alert('An error occurred.'+msg);
+      })
+    },
+    checkoutCart({dispatch, getters}){
+      return cartService.checkoutCart(getters.token)
+      .then(({msg, order})=>{
+        if(msg == 'success'){
+          dispatch('emptyCart');
+          alert('Checkout Successful');
+        }
+        else{
+          alert('An error occurred. Failed to checkout');
+        }
+      })
+      .catch(({msg})=>{
+        alert('An error occurred.'+msg);
       })
     }
   },
