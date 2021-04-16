@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="header-bar">
-            <span id="brand"><img src="../assets/default.svg" alt="" srcset=""></span>
+            <span id="brand">  <router-link to="/"><img src="../assets/default.svg" alt="" srcset=""></router-link> </span>
             <div class="search-div">
                 <input type="search" name="" id="" placeholder="Enter Search Here...">
                 <a href="#" class="btn">Search</a>
             </div>
             <div class="cart-logout-container">
                 <span class="cart">
-                    <a href="/cart" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
+                    <a href="/cart" :data-content="cartAmount" id="cart-badge" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
                 </span>
                 <span class="logout">
                     <a @click="signOut" class="btn-small"><i class="material-icons tiny">exit_to_app</i></a>
@@ -35,14 +35,17 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
     methods:{
         ...mapActions(['logout']),
-        signOut(){
-            this.logout();
+        async signOut(){
+            await this.logout();
             this.$router.push('/login');
         }
+    },
+    computed:{
+        ...mapGetters(['cartAmount'])
     }
 }
 </script>
@@ -106,6 +109,20 @@ export default {
                     color: #000;
                 }
             }
+        }
+        .cart{
+            position: relative;
+        }
+        #cart-badge::after{
+            content: attr(data-content);
+            color: black;
+            position: absolute;
+            top: 0px;
+            right: 10px;
+            background: var(--color-primary);
+            padding: 2px;
+            line-height: 1;
+            border-radius: 50%;
         }
     }
     

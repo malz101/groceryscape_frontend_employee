@@ -14,21 +14,22 @@
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Subtotal</th>
-                            <th><i class="material-icons tiny">delete</i></th>
+                            <th class="empty-cart"> <a @click="clearCart" class="btn-small"><i class="material-icons tiny">delete</i></a> </th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="cartItem of Object.values(groceries).slice(0, 8)" :key="cartItem.id">
+                    <tbody v-if="Object.values(cart).length>0">
+                        <tr v-for="cartItem of Object.values(cart)" :key="cartItem['grocery_id']">
                             <td></td>
                             <td> {{cartItem['name']}} </td>
-                            <td> {{cartItem['cost_per_unit']}} </td>
+                            <td> {{cartItem['cost']}} </td>
                             <td> {{cartItem['quantity']}} </td>
                             <td> {{100.00 * cartItem['quantity']}} </td>
-                            <td> <i class="material-icons tiny">close</i> </td>
+                            <td class="empty-cart"> <a @click="removeFromCart(cartItem['grocery_id'])" class="btn-small"><i class="material-icons tiny">close</i></a> </td>
                             <td> </td>
                         </tr>
                     </tbody>
+                    <p v-else>Cart Empty</p>
                 </table>
             </div>
         </div>
@@ -41,13 +42,21 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
     async created(){
-        await this.getGroceries();
+        await this.getCart();
     },
     methods:{
-        ...mapActions(['getGroceries'])
+        ...mapActions(['getCart', 'emptyCart', 'removeItemFromCart']),
+        async clearCart(){
+            await this.emptyCart();
+        },
+        async removeFromCart(groceryId){
+            const form = new FormData();
+            form.set('grocery_id', groceryId);
+            await this.removeItemFromCart(form);
+        }
     },
     computed:{
-        ...mapGetters(['groceries'])
+        ...mapGetters(['cart'])
     }
 }
 </script>
@@ -72,5 +81,17 @@ export default {
   p{
     font-size: 10px;
   }
+}
+.empty-cart{
+    .btn-small{
+        background: var(--bg-primary);
+        border-radius: 50%;
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+        box-shadow: none;
+    }   
+    .btn-small:hover{
+        opacity: 0.5;
+    }
 }
 </style>

@@ -13,7 +13,7 @@
               <p>{{grocery['cost_per_unit']}}</p>
             </div>
             <div class="card-action center">
-              <a href="#">Add to Cart</a>
+              <a @click="addItemToCart(grocery.id)" class="add-to-cart-btn btn-small btn-flat">Add to Cart</a>
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@
               <p>{{grocery['cost_per_unit']}}</p>
             </div>
             <div class="card-action center">
-              <a href="#">Add to cart</a>
+              <a @click="addItemToCart(grocery.id)" class="add-to-cart-btn btn-small btn-flat">Add to cart</a>
             </div>
           </div>
         </div>
@@ -89,9 +89,16 @@ export default {
   
   async created(){
     await this.getGroceries();
+    await this.getCart();
   },
   methods:{
-    ...mapActions(['getGroceries'])
+    ...mapActions(['getGroceries', 'addToCart', 'getCart']),
+    async addItemToCart(id){
+      const form = new FormData();
+      form.set('item_id', id);
+      form.set('quantity', 1)
+      await this.addToCart(form)
+    }
   },
   computed:{
     ...mapGetters(['groceries'])
@@ -127,6 +134,15 @@ export default {
         max-height: 80px;
         font-size: 14px;
         overflow: hidden;
+      }
+    }
+    .card-action{
+      .add-to-cart-btn{
+        color: orange;
+      }
+      .add-to-cart-btn:hover{
+        background: orange;
+        color: white;
       }
     }
   }
