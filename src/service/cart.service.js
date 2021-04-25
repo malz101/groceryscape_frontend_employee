@@ -4,17 +4,23 @@ import config from '../config';
 export default{
     async getCart(token){
         return new Promise(async (resolve, reject)=>{
-            const resp = await axios.get(`${config.api}/manage_cart/get_cart_items`,{
-                headers:{
-                    Authorization: `Bearer ${token}`,
+            let resp = {};
+            try {
+                resp = await axios.get(`${config.api}/manage_cart/get_cart_items`,{
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                if(resp.status==200){
+                    return resolve(resp.data);
                 }
-            });
-            if(resp.status==200){
-                return resolve(resp.data);
+                else{
+                    return reject(resp.data);
+                }
+            } catch (error) {
+                console.log(error);
             }
-            else{
-                return reject(resp.data);
-            }
+            
         })
     },
     async addToCart(token, body){
@@ -24,7 +30,7 @@ export default{
                     Authorization: `Bearer ${token}`,
                 }
             });
-            if(resp.status==200){
+            if(resp.status==201){
                 return resolve(resp.data);
             }
             else{
@@ -47,9 +53,9 @@ export default{
             }
         });
     },
-    async removeItemFromCart(token, body){
+    async removeItemFromCart(token, groceryId){
         return new Promise(async(resolve, reject)=>{
-            const resp = await axios.post(`${config.api}/manage_cart/removeFromCart`, body, {
+            const resp = await axios.get(`${config.api}/manage_cart/removeFromCart/${groceryId}`, {
                 headers:{
                     Authorization: `Bearer ${token}`,
                 }

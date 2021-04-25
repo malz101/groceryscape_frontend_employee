@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="toolbar">
         <div class="header-bar">
             <span id="brand">  <router-link to="/"><img src="../assets/default.svg" alt="" srcset=""></router-link> </span>
             <div class="search-div">
@@ -51,6 +51,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.toolbar{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
 
 .header-bar{
     width: 100%;

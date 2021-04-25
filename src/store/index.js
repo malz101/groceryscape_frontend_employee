@@ -53,7 +53,8 @@ export default new Vuex.Store({
   actions: {
     login({commit}, payload){
       return authService.login(payload)
-      .then(({token, customer})=>{
+      .then(({data, msg})=>{
+        const {token, customer} = data;
         commit('setLoggedIn', customer['cust_id']);
         commit('setToken', token);
         return true;
@@ -79,11 +80,11 @@ export default new Vuex.Store({
     },
     getCart({commit, getters}){
       return cartService.getCart(getters.token)
-      .then((result)=>{
-        if (result['msg']=='success'){
-          commit('setCart', result['items']);
+      .then(({data, msg})=>{
+        if (msg=='success'){
+          commit('setCart', data['items']);
         }
-        else if(result['msg']=='not item found'){
+        else if(msg=='no items found'){
           commit('setCart', {});
         }
         else{
@@ -103,7 +104,7 @@ export default new Vuex.Store({
     emptyCart({dispatch, getters}){
       return cartService.emptyCart(getters.token)
       .then(({msg})=>{
-        if(msg=='cart emptied'){
+        if(msg=='success'){
           dispatch('getCart');
         }
         else{
@@ -114,11 +115,11 @@ export default new Vuex.Store({
         alert('An error occurred.'+msg);
       })
     },
-    removeItemFromCart({commit, getters}, payload){
-      return cartService.removeItemFromCart(getters.token, payload)
-      .then(({msg, items})=>{
+    removeItemFromCart({commit, getters}, groceryId){
+      return cartService.removeItemFromCart(getters.token, groceryId)
+      .then(({msg, data})=>{
         if(msg=='success'){
-          commit('setCart', items);
+          commit('setCart', data['items']);
         }
         else{
           alert('An error occurred. Failed to remove item');

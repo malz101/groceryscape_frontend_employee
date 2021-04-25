@@ -51,9 +51,7 @@ export default {
             await this.emptyCart();
         },
         async removeFromCart(groceryId){
-            const form = new FormData();
-            form.set('grocery_id', groceryId);
-            await this.removeItemFromCart(form);
+            await this.removeItemFromCart(groceryId);
         },
         async checkout(){
             await this.checkoutCart();
