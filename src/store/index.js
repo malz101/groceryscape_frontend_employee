@@ -63,12 +63,12 @@ export default new Vuex.Store({
         return false;
       })
     },
-    logout({commit}){
-      return authService.logout()
+    logout({commit, getters}){
+      return authService.logout(getters.token)
       .then((result)=>{
         commit('setLoggedIn', '');
       })
-      .catch(()=>{
+      .catch((err)=>{
         console.log(err);
       })
     },

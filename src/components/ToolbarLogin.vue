@@ -6,12 +6,12 @@
                 <input type="search" name="" id="" placeholder="Enter Search Here...">
                 <a href="#" class="btn">Search</a>
             </div>
-            <div class="cart-logout-container">
-                <span class="cart">
-                    <a href="/cart" :data-content="cartAmount" id="cart-badge" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
+            <div class="cart-login-container"> 
+                <span class="login">
+                    <a href="/login" class="btn-small">Login</a>
                 </span>
-                <span class="logout">
-                    <a @click="signOut" class="btn-small"><i class="material-icons tiny">exit_to_app</i></a>
+                <span class="sign-up">
+                    <a @click="signUp" class="btn-small">Register</a>
                 </span>
             </div>
         </div>
@@ -41,6 +41,12 @@ export default {
         async signOut(){
             await this.logout();
             this.$router.push('/login');
+        },
+        async signIn(){
+
+        },
+        async signUp(){
+
         }
     },
     computed:{
@@ -50,13 +56,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.toolbar{
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
 .header-bar{
     width: 100%;
     background: var(--bg-primary);
@@ -91,46 +90,14 @@ export default {
             box-sizing: border-box;
             height: 35px;
         }
-    }
-    .cart-logout-container{
-        display: flex;
-        align-items: center;
-
-        .cart, .logout{
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            color: white;
-            a{
-                margin-right: 8px;
-                background: white;
-                height: 50px;
-                width: 50px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                i{
-                    color: #000;
-                }
-            }
-        }
-        .cart{
-            position: relative;
-        }
-        #cart-badge::after{
-            content: attr(data-content);
-            color: black;
-            position: absolute;
-            top: 0px;
-            right: 10px;
+    }  
+    .cart-login-container{
+        a{
             background: var(--color-primary);
-            padding: 2px;
-            line-height: 1;
-            border-radius: 50%;
+            color: #00242c;
+            border-radius:0 ;
         }
-    }
-    
+    }  
 }
 
 nav {
@@ -160,6 +127,7 @@ nav {
             }
         }
     }
+
     
 }
 </style>

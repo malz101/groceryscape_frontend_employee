@@ -17,10 +17,14 @@ export default {
             }
         })
     },
-    async logout(){
+    async logout(token){
         return new Promise(async(resolve, reject)=>{
             try{
-                const resp = await axios.get(`${config.api}/manage_customer_account/logout`);
+                const resp = await axios.get(`${config.api}/manage_customer_account/logout`,{
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
 
                 if(resp.status==200){
                     return resolve(resp.data);

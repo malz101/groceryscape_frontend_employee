@@ -5,6 +5,7 @@ import Shop from '../views/Shop';
 import About from '../views/About';
 import Cart from '../views/Cart';
 import Login from '../views/Login';
+import Checkout from '../views/Checkout';
 import store from '../store';
 
 Vue.use(VueRouter)
@@ -29,6 +30,10 @@ const routes = [
   {
     path:'/cart',
     component:Cart
+  },
+  {
+    path:'/checkout',
+    component: Checkout
   }
 ];
 
@@ -40,10 +45,10 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next)=>{
-  if (to.path !== '/login' && !store.getters.isLoggedIn) {
-    next({ path: '/login' });
-  }
-  else if (to.path === '/login' && store.getters.isLoggedIn){
+  // if (to.path !== '/login' && !store.getters.isLoggedIn) {
+  //   next({ path: '/login' });
+  // }
+  if (to.path === '/login' && store.getters.isLoggedIn){
     next({path: '/'});
   }
   else{

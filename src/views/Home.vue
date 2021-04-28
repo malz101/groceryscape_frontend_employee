@@ -1,5 +1,18 @@
 <template>
   <div class="home">
+
+    <!-- Modal Structure -->
+    <div id="not-logged-in-modal" class="modal">
+      <div class="modal-content">
+        <h6>You are not logged in.</h6>
+        <p>Register or Log In to continue.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="/login" class="modal-close btn bg-primary">Login</a>
+        <a href="#" class="modal-close btn-flat">Close</a>
+      </div>
+    </div>
+
     <div class="section">
       <div class="container">
         <h5>Vegetables</h5>
@@ -89,24 +102,43 @@ export default {
   
   async created(){
     await this.getGroceries();
-    await this.getCart();
+    if(this.isLoggedIn){
+      await this.getCart();
+    }
+  },
+  mounted(){
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
   },
   methods:{
     ...mapActions(['getGroceries', 'addToCart', 'getCart']),
     async addItemToCart(id){
-      const form = new FormData();
-      form.set('item_id', id);
-      form.set('quantity', 1)
-      await this.addToCart(form)
+      if(this.isLoggedIn){
+        const form = new FormData();
+        form.set('item_id', id);
+        form.set('quantity', 1)
+        await this.addToCart(form);
+      }
+      else{
+        var notLoggedInModal = document.querySelector('#not-logged-in-modal');
+        let instance = M.Modal.getInstance(notLoggedInModal);
+
+        instance.open();
+      }
+      
     }
   },
   computed:{
-    ...mapGetters(['groceries'])
+    ...mapGetters(['groceries','isLoggedIn'])
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.bg-primary{
+  background: var(--bg-primary);
+}
+
 .grid{
   display: grid;
   grid-template-columns: repeat(4, auto);

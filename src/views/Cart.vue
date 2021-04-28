@@ -31,7 +31,7 @@
                     </tbody>
                     <p v-else>Cart Empty</p>
                 </table>
-                <a :class="{'disabled':Object.values(cart).length==0}" @click="checkout" class="btn checkout-btn">Checkout</a>
+                <a :class="{'disabled':Object.values(cart).length==0}" href="/checkout" class="btn checkout-btn">Checkout</a>
             </div>
         </div>
     </div>
@@ -46,16 +46,13 @@ export default {
         await this.getCart();
     },
     methods:{
-        ...mapActions(['getCart', 'emptyCart', 'removeItemFromCart', 'checkoutCart']),
+        ...mapActions(['getCart', 'emptyCart', 'removeItemFromCart']),
         async clearCart(){
             await this.emptyCart();
         },
         async removeFromCart(groceryId){
             await this.removeItemFromCart(groceryId);
         },
-        async checkout(){
-            await this.checkoutCart();
-        }
     },
     computed:{
         ...mapGetters(['cart'])
