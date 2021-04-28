@@ -12,12 +12,11 @@
         <a href="#" class="modal-close btn-flat">Close</a>
       </div>
     </div>
-
-    <div class="section">
+    <div class="section" v-for="category of Object.keys(categories)" :key="category">
       <div class="container">
-        <h5>Vegetables</h5>
+        <h5>{{category}}</h5>
         <div class="grid">
-          <div class="card" v-for="grocery of Object.values(groceries).slice(0, 8)" :key="grocery.id">
+          <div class="card" v-for="grocery of categories[category].slice(0, 8)" :key="grocery.id">
             <div class="card-image">
               <img src="../assets/grocery.jpg">
             </div>
@@ -25,28 +24,9 @@
               <span class="card-title">{{grocery.name}}</span>
               <p>{{grocery['cost_per_unit']}}</p>
             </div>
-            <div class="card-action center">
+            <div class="card-action">
               <a @click="addItemToCart(grocery.id)" class="add-to-cart-btn btn-small btn-flat">Add to Cart</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="container">
-        <h5>Fruits</h5>
-        <div class="grid">
-          <div class="card" v-for="grocery of Object.values(groceries).slice(9, 17)" :key="grocery.id">
-            <div class="card-image">
-              <img src="../assets/grocery.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title">{{grocery.name}}</span>
-              <p>{{grocery['cost_per_unit']}}</p>
-            </div>
-            <div class="card-action center">
-              <a @click="addItemToCart(grocery.id)" class="add-to-cart-btn btn-small btn-flat">Add to cart</a>
+              <star-rating :clearable="true" :rating="0" :show-rating="false" :star-size="20" :animate="true" @rating-selected ="setRating($event, grocery.id)"></star-rating> 
             </div>
           </div>
         </div>
@@ -99,7 +79,6 @@
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Home',
-  
   async created(){
     await this.getGroceries();
     if(this.isLoggedIn){
@@ -111,7 +90,7 @@ export default {
     var instances = M.Modal.init(elems);
   },
   methods:{
-    ...mapActions(['getGroceries', 'addToCart', 'getCart']),
+    ...mapActions(['getGroceries', 'addToCart', 'getCart', 'rateGrocery']),
     async addItemToCart(id){
       if(this.isLoggedIn){
         const form = new FormData();
@@ -126,10 +105,16 @@ export default {
         instance.open();
       }
       
+    },
+    async setRating(rating, groceryId){
+      let form = new FormData();
+      form.set('item_id', groceryId);
+      form.set('rating', rating);
+      await this.rateGrocery(form);
     }
   },
   computed:{
-    ...mapGetters(['groceries','isLoggedIn'])
+    ...mapGetters(['groceries','isLoggedIn','categories'])
   }
 }
 </script>
@@ -146,6 +131,9 @@ export default {
     width: 200px;
     padding: 16px;
     box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .card-image{
       width: 200px;
       height: 130px;
@@ -169,6 +157,9 @@ export default {
       }
     }
     .card-action{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       .add-to-cart-btn{
         color: orange;
       }

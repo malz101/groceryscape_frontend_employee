@@ -7,20 +7,18 @@
                     <div class="categories">
                         <span class="categories-title">Product Categories</span>
                         <ul class="categories-list">
-                            <li><a>Vegetables</a></li>
-                            <li><a>Fruit</a></li>
-                            <li><a>Meat</a></li>
+                            <li v-for="category of Object.keys(categories)" :key="category"><a :class="{'active':category==activeCategoryName}" @click="showCategory(category)"> {{category}} </a></li>
                         </ul>
                     </div>
                     <div class="product">
                         <span class="product-title">Quality & Freshness Guaranteed! Good Health.</span>
                         <div class="product-grid">
-                            <div class="card" v-for="i in [1,2,3,4,5,6]" :key="i">
+                            <div class="card" v-for="grocery of activeCategory" :key="grocery.id">
                                 <div class="card-image">
                                     <img src="../assets/grocery.jpg">
                                 </div>
                                 <div class="card-content">
-                                    <span class="card-title">Organic Sweet Corn</span>
+                                    <span class="card-title"> {{grocery['name']}} </span>
                                 </div>
                                 <div class="card-action">
                                     <a href="#">Add to cart</a>
@@ -35,8 +33,34 @@
 </template>
 
 <script>
+
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-    
+    data(){
+        return{
+            activeCategory:[],
+            activeCategoryName:''
+        }
+    },
+    async created(){
+        await this.getGroceries();
+        if(this.isLoggedIn){
+            await this.getCart();
+        }
+        [this.activeCategoryName, this.activeCategory] = Object.entries(this.categories)[0];
+        
+    },
+    methods:{
+        ...mapActions(['getGroceries', 'getCart']),
+        showCategory(category){
+            this.activeCategoryName = category;
+            this.activeCategory = this.categories[category];
+        }
+    },
+    computed:{
+        ...mapGetters(['groceries', 'isLoggedIn', 'categories'])
+    }
 }
 </script>
 
@@ -87,6 +111,11 @@ export default {
                     color: gray;
                     font-size: 12px;
                     cursor: pointer;
+                }
+                a.active{
+                    color: black;
+                    font-weight: bold;
+                    text-decoration: underline;
                 }
                 a:hover{
                     text-decoration: underline;

@@ -101,7 +101,7 @@
                     </label>
                 </p>
             </div>
-            <a @click="placeOrder" class="btn">Place Order</a>
+            <a @click="placeOrder" class="btn primary-bg-color">Place Order</a>
         </div>
     </div>
   </div>
@@ -130,20 +130,34 @@ export default {
     },
     async created(){
         await this.getCart();
+        await this.getCustomer();
+
+        this.firstName = this.customer['first_name'];
+        this.lastName = this.customer['last_name'];
+        this.email = this.customer['email'];
+        this.phone = this.customer['telephone'];
+        this.parish = this.customer['parish'];
+        this.town = this.customer['town'];
+        this.country = 'Jamaica';
     },
     methods:{
-        ...mapActions(['getCart']),
+        ...mapActions(['getCart', 'getCustomer']),
         placeOrder(){
 
         }
     },
     computed:{
-        ...mapGetters(['cart'])
+        ...mapGetters(['cart', 'customer'])
     }
 }
 </script>
 
 <style lang="scss" scoped>
+
+.primary-bg-color{
+    background: var(--bg-primary);
+}
+
 .checkout-header{
   text-align: center;
   background: #00242c;
@@ -182,6 +196,8 @@ export default {
         input[type=text]{
             border: 1px solid #9e9e9e;
             border-radius: 2px;
+            box-sizing: border-box;
+            padding-left: 8px;
         }
         #deliveryTime{
             display: block;

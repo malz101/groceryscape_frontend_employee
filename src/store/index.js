@@ -11,6 +11,8 @@ export default new Vuex.Store({
     isLoggedIn: sessionStorage.getItem('user_id') || '',
     token: sessionStorage.getItem('token') || '',
     groceries:[],
+    categories:{},
+    customer:{},
     cart:{},
     cartAmount:0
   },
@@ -30,8 +32,14 @@ export default new Vuex.Store({
     groceries(state){
       return state.groceries;
     },
+    categories(state){
+      return state.categories;
+    },
     cart(state){
       return state.cart;
+    },
+    customer(state){
+      return state.customer;
     }
   },
   mutations: {
@@ -46,8 +54,14 @@ export default new Vuex.Store({
     setGroceries(state, groceries){
       state.groceries = groceries;
     },
+    setCategories(state, categories){
+      state.categories = categories;
+    },
     setCart(state, cart){
       state.cart = cart;
+    },
+    setCustomer(state, customer){
+      state.customer=customer;
     }
   },  
   actions: {
@@ -74,8 +88,21 @@ export default new Vuex.Store({
     },
     getGroceries({commit}){
       return groceriesService.getGroceries()
-      .then((result)=>{
-        commit('setGroceries', result);
+      .then(({data})=>{
+        let {groceries} = data;
+        let list = {};
+        commit('setGroceries', groceries);
+        
+        for(let grocery of groceries){
+          if((grocery['category'] in list)){
+              list[grocery['category']].push(grocery);
+          }
+          else{
+              list[grocery['category']] = [grocery];
+          }
+        }
+
+        commit('setCategories',list);
       });
     },
     getCart({commit, getters}){
@@ -90,6 +117,15 @@ export default new Vuex.Store({
         else{
           alert('An error occurred');
         }
+      })
+    },
+    getCustomer({commit, getters}){
+      return authService.getCustomer(getters.token)
+      .then(({data})=>{
+        commit('setCustomer', data['customer']);
+      })
+      .catch((err)=>{
+        console.log(err);
       })
     },
     addToCart({dispatch, getters}, payload){
@@ -139,6 +175,15 @@ export default new Vuex.Store({
         else{
           alert('An error occurred. Failed to checkout');
         }
+      })
+      .catch(({msg})=>{
+        alert('An error occurred.'+msg);
+      })
+    },
+    rateGrocery({getters}, payload){
+      return groceriesService.rateGrocery(getters.token, payload)
+      .then((result)=>{
+        alert('Rate sent');
       })
       .catch(({msg})=>{
         alert('An error occurred.'+msg);
