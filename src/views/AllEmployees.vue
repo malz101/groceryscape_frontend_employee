@@ -39,7 +39,7 @@
                         <td>Meat</td>
                         <td>454</td>
                         <td><star-rating :clearable="true" :rating="0" :show-rating="false" :star-size="20" :animate="true"></star-rating> </td>
-                        <td><a href=""><i class="material-icons">remove_red_eye</i></a>  <a href=""><i class="material-icons">edit</i></a></td>
+                        <td><a href=""><i class="material-icons">remove_red_eye</i></a>  <a href=""><i class="material-icons">edit</i></a>  <a href=""><i class="material-icons">delete_forever</i></a></td>
                     </tr>
                 </tbody>
             </table>
