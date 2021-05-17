@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import Shop from '../views/Shop';
-import About from '../views/About';
-import Cart from '../views/Cart';
+import Dashboard from '../views/Dashboard.vue';
+import AllProducts from '../views/AllProducts.vue';
+import AllEmployees from '../views/AllEmployees.vue';
+import AddProduct from '../views/AddProduct.vue';
+import Product from '../views/Product.vue'
 import Login from '../views/Login';
-import Checkout from '../views/Checkout';
 import store from '../store';
 
 Vue.use(VueRouter)
@@ -13,27 +13,27 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: Home,
+    component: Dashboard,
   },
   {
     path:'/login',
     component:Login
   },
   {
-    path: '/shop',
-    component: Shop,
+    path: '/all_products',
+    component: AllProducts,
   },
   {
-    path:'/about',
-    component: About
+    path:'/product:product_id',
+    component: Product
   },
   {
-    path:'/cart',
-    component:Cart
+    path:'/add_product',
+    component: AddProduct
   },
   {
-    path:'/checkout',
-    component: Checkout
+    path:'/view_all_employees',
+    component: AllEmployees
   }
 ];
 

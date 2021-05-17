@@ -46,17 +46,7 @@
             </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-content">
-            <div class="card-row">
-              <span class="icon-span"><i class="material-icons">local_mall</i></span>
-              <div class="card-data">
-                <span class="card-title">100% Satisfaction Guaranteed</span>
-                <p>Best quality Produce</p>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <div class="card">
           <div class="card-content">
             <div class="card-row">
