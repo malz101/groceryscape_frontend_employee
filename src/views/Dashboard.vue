@@ -2,13 +2,13 @@
     <div class="">
         <div class="col s12 m7">
             <div class="">
-                <h2 class="header">Horizontal Card</h2>
+                <h2 class="header">Dashboard</h2>
                 <ul>
                     <li>
                         <div class="card horizontal">
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <p>ORDER PENDING</p>
+                                    <p>ORDE PENIG</p>
                                 </div>
                             </div>
                         </div>

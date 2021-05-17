@@ -5,7 +5,7 @@
             <div class="section">
                 <div class="grid">
                     <div class="categories">
-                        <span class="categories-title">Product Categories</span>
+                        <span class="categories-title">ProdCategories</span>
                         <ul class="categories-list">
                             <li v-for="category of Object.keys(categories)" :key="category"><a :class="{'active':category==activeCategoryName}" @click="showCategory(category)"> {{category}} </a></li>
                         </ul>

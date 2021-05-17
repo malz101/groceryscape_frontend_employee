@@ -13,7 +13,7 @@
             <table class="highlight responsive-table">
                 <thead>
                     <tr>
-                        <th>SKU</th>
+                        <th>S</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Category</th>
