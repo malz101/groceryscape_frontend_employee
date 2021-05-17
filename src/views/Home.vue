@@ -40,7 +40,7 @@
             <div class="card-row">
               <span class="icon-span"><i class="material-icons">local_shipping</i></span>
               <div class="card-data">
-                <span class="card-title"> Free & Next Day Delivery</span>
+                <span class="card-title"> Free & Next y Delivery</span>
                 <p>Islandwide free shipping</p>
               </div>
             </div>
