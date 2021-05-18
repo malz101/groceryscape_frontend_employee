@@ -5,7 +5,7 @@ export default {
     async login(body){
         return new Promise(async(resolve, reject)=>{
             try{
-                const resp = await axios.post(`${config.api}/manage_customer_account/login`, body);
+                const resp = await axios.post(`${config.api}/manage_employee_account/login`, body);
 
                 if(resp.status==200){
                     return resolve(resp.data);
@@ -36,10 +36,10 @@ export default {
             }
         })
     },
-    async getCustomer(token){
+    async getEmployee(token){
         return new Promise(async(resolve, reject)=>{
             try{
-                const resp = await axios.get(`${config.api}/manage_customer_account/get_customer`,{
+                const resp = await axios.get(`${config.api}/manage_employee_account/get_employee`,{
                     headers:{
                         Authorization: `Bearer ${token}`,
                     }

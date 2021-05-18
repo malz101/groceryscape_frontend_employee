@@ -1,18 +1,18 @@
 <template>
     <div class="toolbar">
-        <nav class="nav-wrapper">
-            <div class="toolbar">
-                <div class="header-bar">
-                    <span id="brand">  <router-link to="/"><img src="../assets/default.svg" alt="" srcset=""></router-link> </span>
-                </div>
-            
+        <nav>
+            <div class="nav-wrapper container">
+                <a href="#" data-target="slide-out" class="sidenav-trigger menu-btn"><i class="material-icons">menu</i></a>
+                <a href="#" class="brand-logo left">GroceryScape</a>
                 <ul id="nav-mobile" class="right">
-                    <li><a class="waves-effect waves-light btn-small"><i class="material-icons">dehaze</i></a></li>
-                    <li><a class="waves-effect waves-light btn-small"><i class="material-icons">person</i><i class="material-icons">expand_more</i></a></li>
+                    <li class="active"><a href="/">Orders</a></li>
+                    <li><a href="/delivery">Delivery</a></li>
+                    <li><a href="/inventory">Inventory</a></li>
+                    <li><a href="/payments">Payments</a></li>
                 </ul>
             </div>
         </nav>
-        
+            
         <ul id="slide-out" class="sidenav ">
             <li>
                 <div class="user-view">
@@ -55,6 +55,22 @@
                 </ul>
             </li>
         </ul>
-        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
 </template>
+
+<script>
+export default {
+    mounted(){
+        var elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems, {});
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+
+nav{
+    background: var(--bg-primary);
+}
+
+</style>

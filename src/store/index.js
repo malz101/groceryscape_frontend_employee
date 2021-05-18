@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import groceriesService from '../service/groceries.service';
 import authService from '../service/auth.service';
 import cartService from '../service/cart.service';
+import orderService from '../service/order.service';
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
     token: sessionStorage.getItem('token') || '',
     groceries:[],
     categories:{},
-    customer:{},
+    employee:{},
+    orders:[],
     cart:{},
     cartAmount:0
   },
@@ -38,8 +40,11 @@ export default new Vuex.Store({
     cart(state){
       return state.cart;
     },
-    customer(state){
-      return state.customer;
+    employee(state){
+      return state.employee;
+    },
+    orders(state){
+      return state.orders;
     }
   },
   mutations: {
@@ -60,20 +65,23 @@ export default new Vuex.Store({
     setCart(state, cart){
       state.cart = cart;
     },
-    setCustomer(state, customer){
-      state.customer=customer;
+    setEmployee(state, employee){
+      state.employee=employee;
+    },
+    setOrders(state, orders){
+      state.orders = orders;
     }
   },  
   actions: {
     login({commit}, payload){
       return authService.login(payload)
-      .then(({data, msg})=>{
-        const {token, customer} = data;
-        commit('setLoggedIn', customer['cust_id']);
+      .then(({employee, token})=>{
+        commit('setLoggedIn', employee['emp_id']);
         commit('setToken', token);
         return true;
       })
       .catch((result)=>{
+        console.log(result)
         return false;
       })
     },
@@ -119,10 +127,10 @@ export default new Vuex.Store({
         }
       })
     },
-    getCustomer({commit, getters}){
-      return authService.getCustomer(getters.token)
+    getEmployee({commit, getters}){
+      return authService.getEmployee(getters.token)
       .then(({data})=>{
-        commit('setCustomer', data['customer']);
+        commit('setEmployee', data['employee']);
       })
       .catch((err)=>{
         console.log(err);
@@ -188,6 +196,36 @@ export default new Vuex.Store({
       .catch(({msg})=>{
         alert('An error occurred.'+msg);
       })
+    },
+    getOrders({commit, getters}){
+      return orderService.getOrders(getters.token)
+      .then(({data, msg})=>{
+        if(msg=='success'){
+          commit('setOrders', data['orders']);
+          return true;
+        }
+        else{
+          commit('setOrders', []);
+          return true;
+        }
+      })
+      .catch((result)=>{
+        console.log(result);
+        return false;
+      });
+    },
+    updateOrderStatus({getters}, payload){
+      return orderService.updateOrderStatus(getters.token, payload)
+      .then(({data, msg})=>{
+        if(msg =='success'){
+          return data;
+        }
+        return false;
+      })
+      .catch((result)=>{
+        console.log(result);
+        return false;
+      });
     }
   },
   modules: {

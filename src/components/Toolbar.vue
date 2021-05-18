@@ -6,14 +6,6 @@
                 <input type="search" name="" id="" placeholder="Enter Search Here...">
                 <a href="#" class="btn">Search</a>
             </div>
-            <div class="cart-logout-container">
-                <span class="cart">
-                    <a href="/cart" :data-content="cartAmount" id="cart-badge" class="btn-small"><i class="material-icons tiny">add_shopping_cart</i></a>
-                </span>
-                <span class="logout">
-                    <a @click="signOut" class="btn-small"><i class="material-icons tiny">exit_to_app</i></a>
-                </span>
-            </div>
         </div>
         <div class="container">
             <nav class="nav-wrapper">
@@ -49,14 +41,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-.toolbar{
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
+<style lang="scss" scoped>  
 .header-bar{
     width: 100%;
     background: var(--bg-primary);
@@ -71,6 +56,7 @@ export default {
         font-weight: bold;
         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         color: black;
+
     }
     .search-div{
         display: flex;
