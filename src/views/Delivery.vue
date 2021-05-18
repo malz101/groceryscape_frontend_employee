@@ -1,75 +1,13 @@
 <template>
     <div class="dashboard">
         <div class="col s12 m7 container">
-            <h3 class="header">Dashboard</h3>
-            <div class="order-types">
-                <div class="card order-card pending">
-                    <a href="/?status=pending">
-                        <div class="card-stacked">
-                            <div class="card-content title-and-icon">
-                                <div class="title">
-                                    <p>Order Pending</p>
-                                    <span>{{orders.filter((order)=>order['status'].toLowerCase()=='pending').length}}</span>
-                                </div>
-                                <div class="icon">
-                                    <i class="material-icons">loop</i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card order-card checked-out">
-                    <a href="/?status=checked out">
-                        <div class="card-stacked">
-                            <div class="card-content title-and-icon">
-                                <div class="tite">
-                                    <p>Order Checkout</p>
-                                    <span>{{orders.filter((order)=>order['status'].toLowerCase()=='checked out').length}}</span>
-                                </div>
-                                <div class="icon">
-                                    <i class="material-icons">local_shipping</i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card order-card delivered">
-                    <a href="/?status=delivered">
-                        <div class="card-stacked">
-                            <div class="card-content title-and-icon">
-                                <div class="title">
-                                    <p>Order Delivered</p>
-                                    <span>{{orders.filter((order)=>order['status'].toLowerCase()=='delivered').length}}</span>
-                                </div>
-                                <div class="icon">
-                                    <i class="material-icons">check_circle</i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card order-card cancelled">
-                    <a href="/?status=cancelled">
-                        <div class="card-stacked">
-                            <div class="card-content title-and-icon">
-                                <div class="title">
-                                    <p>Order Cancel</p>
-                                    <span>{{orders.filter((order)=>order['status'].toLowerCase()=='cancelled').length}}</span>
-                                </div>
-                                <div class="icon">
-                                    <i class="material-icons">cancel</i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
+            <h3 class="header">Delivery</h3>
             <div class="section vld-parent">
                 <div class="latest-heading">
-                    <h4>Latest Orders</h4>
+                    <h4>Order Delivery</h4>
                     <a href="/" class="waves-effect waves-light bg-primary view-all-btn btn-small">View All</a>
                 </div>
+                <!-- {{orders[0]['street']}} -->
                 <table v-if="!isLoading && orders.length>0" class="highlight responsive-table order-table">
                     <thead>
                         <tr>
@@ -77,40 +15,25 @@
                             <th>Billing Name</th>
                             <th>Order Date</th>
                             <th>Delivery Date</th>
-                            <th>Total</th>
+                            <th>Delivery Timeslot</th>
+                            <th>Delivery Address</th>
+                            <th>Delivery Cost</th>
                             <th>Order Status</th>
-                            <th>Payment Method</th>
                             <th>Update Status</th>
                         </tr>
                     </thead>
-                    <tbody v-if="!isLoading && orders.length>0 && !isQuery">
-                        <tr v-for="order in orders.slice(0,20)" :key="order['order_id']">
-                            <td>{{order['order_id']}}</td>
-                            <td>{{order['customer']}}</td>
-                            <td>{{order['order_date'] | formatDate }}</td>
-                            <td>{{order['formatted_delivery_date'] | formatDate}}</td>
-                            <td class="total">${{ Number.parseFloat(order['total']).toFixed(2) }}</td>
-                            <td> <span data-badge-caption="" :class="{'pending':order['status'].toLowerCase()=='pending', 'cancelled':order['status'].toLowerCase()=='cancelled','checked-out':order['status'].toLowerCase()=='checked out', 'delivered':order['status'].toLowerCase()=='delivered' }" class="badge">{{order['status'].toLowerCase()}}</span> </td>
-                            <td>{{order['payment_type']}}</td>
-                            <td>
-                                <select class="browser-default order-select" name="orderStatus" @change="onStatusChange($event, order['order_id'])">
-                                    <option :selected="order['status'].toLowerCase()=='cancelled'" value="cancelled">Cancel</option>
-                                    <option :selected="order['status'].toLowerCase()=='pending'" value="pending">Pending</option>
-                                    <option :selected="order['status'].toLowerCase()=='checked out'" value="checked out">Checkout</option>
-                                    <option :selected="order['status'].toLowerCase()=='delivered'" value="delivered">Delivered</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody v-else-if="!isLoading && isQuery && localOrders.length>0">
+                    <tbody v-if="orders.length>0">
                         <tr v-for="order in localOrders.slice(0,20)" :key="order['order_id']">
                             <td>{{order['order_id']}}</td>
                             <td>{{order['customer']}}</td>
                             <td>{{order['order_date'] | formatDate }}</td>
                             <td>{{order['formatted_delivery_date'] | formatDate}}</td>
-                            <td class="total">${{ Number.parseFloat(order['total']).toFixed(2) }}</td>
+                            <td>{{ order['delivery_timeslot'].substring(0,8) | formatDeliveryTime }} - {{ order['delivery_timeslot'].substring(9,18) | formatDeliveryTime }}</td>
+                            <td>{{
+                                order['delivery_town'] +',\n'+ order['delivery_parish']
+                            }}</td>
+                            <td class="total">${{Number.parseFloat(order['delivery_cost']).toFixed(2)}}</td>
                             <td> <span data-badge-caption="" :class="{'pending':order['status'].toLowerCase()=='pending', 'cancelled':order['status'].toLowerCase()=='cancelled','checked-out':order['status'].toLowerCase()=='checked out', 'delivered':order['status'].toLowerCase()=='delivered' }" class="badge">{{order['status'].toLowerCase()}}</span> </td>
-                            <td>{{order['payment_type']}}</td>
                             <td>
                                 <select class="browser-default order-select" name="orderStatus" @change="onStatusChange($event, order['order_id'])">
                                     <option :selected="order['status'].toLowerCase()=='cancelled'" value="cancelled">Cancel</option>
@@ -140,17 +63,15 @@ export default {
         return{
             isLoading:true,
             statusChange:'',
-            localOrders:[],
-            isQuery:false
+            localOrders:[]
         }
     },
     async created(){
         if(this.isLoggedIn){
             await this.getOrders();
-
+            this.localOrders = this.orders;
             let result = [];
             if('status' in this.$route.query){
-                this.isQuery = true;
                 for(let order of this.orders){
                     if(order['status']==this.$route.query['status']){
                         result.push(order);

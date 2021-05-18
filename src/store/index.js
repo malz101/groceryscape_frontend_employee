@@ -86,13 +86,7 @@ export default new Vuex.Store({
       })
     },
     logout({commit, getters}){
-      return authService.logout(getters.token)
-      .then((result)=>{
-        commit('setLoggedIn', '');
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+      commit('setLoggedIn', '');
     },
     getGroceries({commit}){
       return groceriesService.getGroceries()

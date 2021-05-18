@@ -6,9 +6,10 @@
                 <a href="#" class="brand-logo left">GroceryScape</a>
                 <ul id="nav-mobile" class="right">
                     <li class="active"><a href="/">Orders</a></li>
-                    <li><a href="/delivery">Delivery</a></li>
+                    <li><a href="/delivery">Delivery Schedule</a></li>
                     <li><a href="/inventory">Inventory</a></li>
                     <li><a href="/payments">Payments</a></li>
+                    <li><a @click="signout">Logout</a></li>
                 </ul>
             </div>
         </nav>
@@ -59,10 +60,18 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     mounted(){
         var elems = document.querySelectorAll('.sidenav');
         M.Sidenav.init(elems, {});
+    },
+    methods:{
+        ...mapActions(['logout']),
+        signout(){
+            this.logout();
+            this.$router.push('/login');
+        }
     }
 }
 </script>

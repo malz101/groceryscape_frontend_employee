@@ -10,9 +10,6 @@
                 <span class="login">
                     <a href="/login" class="btn-small">Login</a>
                 </span>
-                <span class="sign-up">
-                    <a @click="signUp" class="btn-small">Register</a>
-                </span>
             </div>
         </div>
         <div class="container">

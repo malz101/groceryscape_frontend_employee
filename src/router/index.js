@@ -6,6 +6,7 @@ import AllEmployees from '../views/AllEmployees.vue';
 import AddProduct from '../views/AddProduct.vue';
 import Product from '../views/Product.vue'
 import Login from '../views/Login';
+import Delivery from '../views/Delivery'
 import store from '../store';
 
 Vue.use(VueRouter)
@@ -34,6 +35,10 @@ const routes = [
   {
     path:'/view_all_employees',
     component: AllEmployees
+  },
+  {
+    path:'/delivery',
+    component: Delivery
   }
 ];
 
@@ -45,10 +50,10 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next)=>{
-  // if (to.path !== '/login' && !store.getters.isLoggedIn) {
-  //   next({ path: '/login' });
-  // }
-  if (to.path === '/login' && store.getters.isLoggedIn){
+  if (to.path !== '/login' && !store.getters.isLoggedIn) {
+    next({ path: '/login' });
+  }
+  else if (to.path === '/login' && store.getters.isLoggedIn){
     next({path: '/'});
   }
   else{

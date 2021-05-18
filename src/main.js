@@ -30,7 +30,19 @@ function formatDate(data){
   return `${date.toLocaleDateString()}`;
 }
 
+function formatDeliveryTime(data){
+  if(!data){
+    return null;
+  }
+
+  var H = +data.substr(0, 2);
+  var h = H % 12 || 12;
+  var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+  return h + data.substr(2, 3) + ampm;
+}
+
 Vue.filter('formatDate', formatDate);
+Vue.filter('formatDeliveryTime', formatDeliveryTime);
 
 new Vue({
   router,
